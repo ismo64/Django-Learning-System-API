@@ -1,0 +1,31 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+    <div class="container">
+        {% if has_access %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Название</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for lesson in lessons %}
+                <tr>
+                    <th scope="row">{{ lesson.id }}</th>
+                    <td>{{ lesson.title }}</td>
+                    <td><a href="{% url 'lesson_detail' pk lesson.id %}">Смотреть</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h4>У Вас нет доступка к данному уроку, чтобы получить доступ нужно добавить данный курс.
+            </h4>
+            <a class="btn btn-primary" href="{% url 'access' pk %}" role="button">Добавить</a>
+        {% endif %}
+    </div>
+{% endblock %}
+

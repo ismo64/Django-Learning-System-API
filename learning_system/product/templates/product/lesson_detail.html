@@ -1,0 +1,35 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ lesson.title }}</h1>
+        <p>{{ lesson.description|safe }}</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ url }}?si=8c4m1P6utkY29ob-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        {% if lwt.watched %}
+            <h3>Просмотрено</h3>
+        {% else %}
+            <h3>Не просмотрено</h3>
+        {% endif %}
+    </div>
+    <script>
+        let startTime = new Date();
+    
+        window.addEventListener('beforeunload', function() {
+            let endTime = new Date();
+            let lessonId = 123;  // Замените на идентификатор текущего урока
+            let timeSpent = (endTime - startTime) / 1000;  // Время в секундах
+    
+            // Отправить данные на сервер
+            fetch('/lessons/{{ product_id }}/{{ lesson.id }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    lesson_id: lessonId,
+                    time_spent: timeSpent,
+                }),
+            });
+        });
+    </script>
+{% endblock %}

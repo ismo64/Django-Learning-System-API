@@ -1,0 +1,15 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+    <h1>Войти</h1>
+    <div class="col-md-8">
+        <form action="#" method="post">
+            {% csrf_token %}
+            <label for="username">Логин</label>
+            <input type="text" class="form-control" name="username">
+            <label for="password">Пароль</label>
+            <input type="password" class="form-control" name="password">
+            <button type="submit" class="btn btn-primary mt-2">Войти</button>
+        </form>
+    </div>
+{% endblock %}
